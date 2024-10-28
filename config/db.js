@@ -14,6 +14,19 @@ db.connect((err) => {
     return;
   }
   console.log("Connected to MySQL database.");
+
+  const createTableQuery = `
+    CREATE TABLE IF NOT EXISTS notes (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      value TEXT NOT NULL,
+      date DATETIME NOT NULL
+    )
+  `;
+
+  db.query(createTableQuery, (err) => {
+    if (err) console.error("Table creation failed:", err.stack);
+    else console.log("Table 'notes' is ready.");
+  });
 });
 
 module.exports = db;
